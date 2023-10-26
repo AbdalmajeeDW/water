@@ -1,33 +1,37 @@
 import LanguageIcon from "@mui/icons-material/Language";
 import wat1 from "../assets/img/logo.png";
-import car from "../assets/img/car.png";
-import hand from "../assets/img/hand.png";
 import Image from "next/image";
 import { AiOutlineMenu } from "react-icons/ai";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { FaHome } from "react-icons/fa";
 import { BsFillPersonFill } from "react-icons/bs";
 import { CiLogout } from "react-icons/ci";
 import { useRouter } from "next/navigation";
-import { PhoneFilled } from "@ant-design/icons";
-import { HiChatBubbleLeftRight } from "react-icons/hi2";
-import { BsFillArrowLeftCircleFill } from "react-icons/bs";
+import { Button, Divider, Select } from "antd";
 
-import { Button, Divider } from "antd";
 import Link from "next/link";
-export default function Home() {
+export default function order(props) {
   const router = useRouter();
-
   const [show, setShow] = useState(false);
+  const [hideText, setHideText] = useState(false);
+  const [userN, setUserN] = useState('');
+  useEffect(() => {
+    const userName = localStorage.getItem("clientName");
+    setUserN(userName);
+  }, []);
+
   const showMenu = () => {
     setShow(!show);
   };
+  const showClose = () => {
+    setHideText(!hideText);
+  };
   const logOut = () => {
-    localStorage.removeItem("token-client");
+    localStorage.removeItem("token");
     router.push("/login");
   };
   return (
-    <main>
+    <div style={{ height: "100vh" }}>
       <div className="home">
         <div className="icon_menu">
           <AiOutlineMenu
@@ -38,7 +42,7 @@ export default function Home() {
             <div className="content_menu">
               <Link href={"/"} style={{ color: "gray" }}>
                 <FaHome style={{ marginTop: "20px" }} />
-              </Link>
+              </Link>{" "}
               <LanguageIcon />
               <Link href={"profile"} style={{ color: "gray" }}>
                 <BsFillPersonFill style={{ marginTop: "20px" }} />
@@ -61,42 +65,20 @@ export default function Home() {
           <Image src={wat1} alt="test" width={125} height={125} />
         </div>
       </div>
-
-      <div className="text_body">
-        "احصل على جودة عالية وراحة لا مثيل لها مع جوالين الماء القابلة للتنقل
-        التي نقدمها على موقعنا"
-        <Image
-          src={hand}
-          alt="test"
-          width={100}
-          height={100}
-          style={{ position: "absolute", left: "31px", marginTop: "80px" }}
+      <div className="title" style={{ display: "flex", justifyContent: "center", alignItems: "center" }}>
+        <Divider
+          className="divider"
         />
+        <span className="userName">{userN}   <BsFillPersonFill /></span>
       </div>
-      <div className="car">
-        <div>
-          <div className="ord1">وش تنتظر ؟</div>
-          <Link href={"/order"}>
-            <div className="ord">اطلب الان</div>
-          </Link>
-        </div>
-        <div className="img">
-          <Image src={car} alt="test" width={250} height={250} />
-        </div>
+      <div className="now2">
+        <span style={{ color: "gray", fontSize: "20px" }}>
+          <span style={{ fontSize: "25px" }}>رصيدي الحالي</span>  : 50 ريال
+        </span>
+        <span style={{ fontSize: "25px", color: "gray", marginTop: "40px" }}>
+          طلباتي
+        </span>
       </div>
-      <Divider></Divider>
-      <div className="support">
-        <div className="sup_pport">
-
-          <HiChatBubbleLeftRight />
-          <PhoneFilled />
-          الدعم الفني
-        </div>
-        <Link href={"/order"} style={{ marginLeft: "20px", color: "gray" }}>
-
-          <BsFillArrowLeftCircleFill />
-        </Link>
-      </div>
-    </main>
+    </div>
   );
 }
