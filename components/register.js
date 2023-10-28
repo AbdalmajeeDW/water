@@ -36,7 +36,7 @@ export default function register() {
         <Image src={wat} alt="test" height={600} />
         <div className="word1 active1">تسجيل </div>
         <div className="word">
-          <Link href="/login.html"> تسجيل الدخول </Link>{" "}
+          <Link href="/login"> تسجيل الدخول </Link>{" "}
         </div>
       </div>
       <div className="sectionTwo">
@@ -64,7 +64,36 @@ export default function register() {
               ]}
             >
               <Input
-                placeholder="الاسم"
+                placeholder="رقم الجوال"
+                style={{ borderRadius: "50px" }}
+                prefix={<BsFillPersonFill style={{ color: "gray" }} />}
+              />
+            </Form.Item>
+            <Form.Item
+              name="first_name"
+              rules={[
+                {
+                  required: true,
+                },
+              ]}
+            >
+              <Input
+                placeholder="الاسم الأول"
+                style={{ borderRadius: "50px" }}
+                prefix={<BsFillPersonFill style={{ color: "gray" }} />}
+              />
+            </Form.Item>
+
+            <Form.Item
+              name="last_name"
+              rules={[
+                {
+                  required: true,
+                },
+              ]}
+            >
+              <Input
+                placeholder="الاسم الأخير"
                 style={{ borderRadius: "50px" }}
                 prefix={<BsFillPersonFill style={{ color: "gray" }} />}
               />
@@ -83,34 +112,7 @@ export default function register() {
                 prefix={<MdPassword style={{ color: "gray" }} />}
               />
             </Form.Item>
-            <Form.Item
-              name="first_name"
-              rules={[
-                {
-                  required: true,
-                },
-              ]}
-            >
-              <Input
-                placeholder="الاسم الأول"
-                style={{ borderRadius: "50px" }}
-                prefix={<BsFillPersonFill style={{ color: "gray" }} />}
-              />
-            </Form.Item>
-            <Form.Item
-              name="last_name"
-              rules={[
-                {
-                  required: true,
-                },
-              ]}
-            >
-              <Input
-                placeholder="الاسم الأخير"
-                style={{ borderRadius: "50px" }}
-                prefix={<BsFillPersonFill style={{ color: "gray" }} />}
-              />
-            </Form.Item>
+
             <Form.Item
               name="phone"
               rules={[
@@ -120,7 +122,7 @@ export default function register() {
               ]}
             >
               <Input
-                placeholder="رقم الجوال"
+                placeholder="رقم الجوال الاحتياطي"
                 style={{ borderRadius: "50px" }}
                 prefix={<BiSolidEditLocation style={{ color: "gray" }} />}
               />

@@ -27,7 +27,11 @@ export default function order(props) {
     setHideText(!hideText);
   };
   const logOut = () => {
-    localStorage.removeItem("token");
+    localStorage.removeItem("token-client");
+    localStorage.removeItem("id");
+    localStorage.removeItem("clientName");
+
+
     router.push("/login");
   };
   return (

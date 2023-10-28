@@ -25,10 +25,10 @@ export default function login() {
   };
   const submit = () => {
     if (phoneNumber.username !== "") {
-      console.log(phoneNumber);
       postLogin(phoneNumber).then((res) => {
         localStorage.setItem("token-client", res.data.token);
         localStorage.setItem("clientName", res.data.data.first_name);
+        localStorage.setItem("id", res.data.data.id);
 
         router.push("/")
 
@@ -43,7 +43,7 @@ export default function login() {
       <div className="login">
         <Image src={wat} alt="test" height={600} />
         <div className="word1 ">
-          <Link href="/register.html"> تسجيل </Link>{" "}
+          <Link href="/register"> تسجيل </Link>{" "}
         </div>
         <div className="word active">تسجيل الدخول</div>
       </div>
@@ -96,7 +96,7 @@ export default function login() {
             تسجيل الدخول
           </Button>
           <span className="rout" style={{ marginTop: "10px" }}>
-            <Link href="/register.html"> تسجيل </Link>ليس لديك حساب؟
+            <Link href="/register"> تسجيل </Link>ليس لديك حساب؟
           </span>
         </div>
       </div>

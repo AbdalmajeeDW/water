@@ -75,12 +75,12 @@ export default function register() {
         </div>
         <div className="next" style={{ color: "gray" }}>
           <FaArrowLeft />
-          <Link href="/register.html" style={{ color: "gray" }}>
+          <Link href="/register " style={{ color: "gray" }}>
             <FaArrowRight />
           </Link>
         </div>
         <span className="rout">
-          لديك حساب؟ <Link href="/login.html"> تسجيل الدخول </Link>
+          لديك حساب؟ <Link href="/login"> تسجيل الدخول </Link>
         </span>
       </div>
     </div>

@@ -17,8 +17,6 @@ export default function login() {
         passWord: "",
     });
     const [authority, setAuthority] = useState('');
-
-    console.log(authority, "auth");
     const handlePhoneChange = (event) => {
         setPhoneNumber({
             username: event.target.value,

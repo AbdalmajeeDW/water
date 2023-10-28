@@ -12,6 +12,7 @@ import { AiOutlineClose } from "react-icons/ai";
 import { Button, Divider, Select, message } from "antd";
 import Link from "next/link";
 import { getProducts } from "@/api-services/products-services";
+import { addOrderServices } from "@/api-services/add-order-services";
 export default function order() {
   const router = useRouter();
 
@@ -23,6 +24,9 @@ export default function order() {
   const [products, setProducts] = useState([{}]);
   const [productsC, setProductsC] = useState([{}]);
   const [selectedValue, setSelectedValue] = useState(null);
+  const [selectedValueC, setSelectedValueC] = useState(null);
+  const [nameprod, setNameprod] = useState(null);
+  const [nameprodC, setNameprodC] = useState(null);
 
   const filteredProducts = products.filter((product) => product.category !== "C");
   const filteredProductsC = productsC.filter((product) => product.category !== "G");
@@ -31,8 +35,18 @@ export default function order() {
   function handleSelect(value) {
     setSelectedValue(value);
     setCountGal(0);
+    const selectedProduct = products.find((product) => product.id === value);
+    setNameprod(selectedProduct.name)
+    if (selectedProduct) {
+      setTotalP(0);
+    }
+  }
+  function handleSelectC(value) {
+
+    setSelectedValueC(value);
     setCountCar(0);
     const selectedProduct = products.find((product) => product.id === value);
+    setNameprodC(selectedProduct.name)
     if (selectedProduct) {
       setTotalP(0);
     }
@@ -48,9 +62,7 @@ export default function order() {
     thumbnail: product.image
 
   }));
-  const text = (event) => {
-    console.log(event, "id");
-  }
+
   useEffect(() => {
     getProducts().then((res) => {
       setProducts(res.data)
@@ -67,20 +79,15 @@ export default function order() {
       const increment = 1;
       setCountGal(countGal + increment);
       const filtered = products.filter((product) => product.id === selectedValue);
-
       const incrementTotal = increment * filtered[0].price;
-
       setTotalP(totalP + incrementTotal);
     }
 
   };
   const minGal = () => {
     if (countGal > 0) {
-      // حساب الانقاص في العدد
       const decrement = 1;
       setCountGal(countGal - decrement);
-
-      // حساب الانقاص في الإجمالي بناءً على فرق القيمة الجديدة والقديمة
       const filtered = products.filter((product) => product.id === selectedValue);
       const decrementTotal = decrement * filtered[0].price;
       setTotalP(totalP - decrementTotal);
@@ -89,11 +96,8 @@ export default function order() {
   };
   const minCar = () => {
     if (countCar > 0) {
-      // حساب الانقاص في العدد
       const decrement = 1;
       setCountCar(countCar - decrement);
-
-      // حساب الانقاص في الإجمالي بناءً على فرق القيمة الجديدة والقديمة
       const filtered = productsC.filter((product) => product.id === selectedValue);
       const decrementTotal = decrement * filtered[0].price;
       setTotalP(totalP - decrementTotal);
@@ -104,16 +108,12 @@ export default function order() {
     if (selectedValue === null) {
       message.error("اختر نوع الكرتون أولا");
     } else {
-      // حساب الزيادة في العدد
       const increment = 1;
       setCountCar(countCar + increment);
-
-      // حساب الزيادة في الإجمالي بناءً على فرق القيمة الجديدة والقديمة
       const filtered = productsC.filter((product) => product.id === selectedValue);
       const incrementTotal = increment * filtered[0].price;
       setTotalP(totalP + incrementTotal);
     }
-
   };
 
   const showMenu = () => {
@@ -123,9 +123,60 @@ export default function order() {
     setHideText(!hideText);
   };
   const logOut = () => {
-    localStorage.removeItem("token");
+    localStorage.removeItem("token-client");
+    localStorage.removeItem("id");
+    localStorage.removeItem("clientName");
+
     router.push("/login");
   };
+
+
+
+  const submitOrder = (event) => {
+    if (selectedValue === null && selectedValueC === null || selectedValue === null || selectedValueC === null) {
+      message.error("من فضلك اختر الاصناف ")
+
+    } else if (countCar === 0 && countGal === 0 || countCar === 0 || countGal === 0) {
+      message.error("من فضلك اختر الكميات ")
+
+    } else {
+
+      const filtered = products.filter((product) => product.id === selectedValue);
+      const filteredProductsC = productsC.filter((product) => product.category !== "G" && product.id === selectedValueC);
+
+      addOrderServices(
+        {
+          client: localStorage.getItem("id"),
+          tendered: 2,
+          items: [
+            {
+              product: filtered[0].id,
+              product__name: filtered[0].name,
+              price: filtered[0].price,
+              quantity: countGal
+            },
+            {
+              product: filteredProductsC[0].id === undefined ? null : filteredProductsC[0].id,
+              product__name: filteredProductsC[0].name === undefined ? null : filteredProductsC[0].name,
+              price: filteredProductsC[0].price === undefined ? null : filteredProductsC[0].price,
+              quantity: countCar,
+            }
+          ],
+          status: "not started",
+          dateCreated: "2023-10-19T00:00:00Z",
+          total: totalP,
+          tenderedAmount: totalP
+        }
+      )
+      message.success("تم ارساال الطلب بنجاح")
+      setSelectedValue(null)
+      setSelectedValueC(null)
+      setNameprod(null)
+      setNameprodC(null)
+      setCountCar(0)
+      setCountGal(0)
+    }
+  }
   return (
     <div>
       <div className="home">
@@ -181,6 +232,7 @@ export default function order() {
           <div className="input_gal">
             <Select
               showSearch
+              value={nameprod}
               onChange={handleSelect}
               onSelect={handleSelect}
               placeholder="نوع الغالون"
@@ -208,6 +260,9 @@ export default function order() {
           </div>
           <div className="input_gal">
             <Select
+              value={nameprodC}
+              onChange={handleSelectC}
+              onSelect={handleSelectC}
               showSearch
               placeholder="نوع الكرتون"
               optionFilterProp="children"
@@ -240,7 +295,7 @@ export default function order() {
         <span style={{ color: "gray", fontSize: "20px" }}>
           المبلغ الأجمالي : {totalP} ريال
         </span>
-        <Button style={{ marginTop: "20px" }}>اطلب</Button>
+        <Button style={{ marginTop: "20px" }} onClick={submitOrder}>اطلب</Button>
       </div>
     </div>
   );

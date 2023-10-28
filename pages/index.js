@@ -24,6 +24,9 @@ export default function Home() {
   };
   const logOut = () => {
     localStorage.removeItem("token-client");
+    localStorage.removeItem("id");
+    localStorage.removeItem("clientName");
+
     router.push("/login");
   };
   return (
