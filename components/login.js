@@ -35,6 +35,8 @@ export default function login() {
       }).catch((err) => {
         // message.error(err.response.non_field_errors[0]);
       });;
+    } else {
+      message.error("من فضلك املأ الحقل")
     }
 
   };
@@ -83,12 +85,13 @@ export default function login() {
           />{" "}
           <Button
             onClick={submit}
+            type="primary"
+            htmlType="submit"
             style={{
               background: "#4A5758",
               color: "white",
               borderRadius: "70px",
-              height: "50px",
-              fontSize: "20px",
+              fontSize: "18px",
               width: "150px",
               marginTop: "40px",
             }}

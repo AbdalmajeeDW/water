@@ -20,6 +20,7 @@ export default function register() {
   const [form] = Form.useForm();
   const onFinish = (val) => {
     val.password = "HuisnnsUuGfTy##%*";
+    val.phone = val.username
     postRegister(val).then((res) => {
       localStorage.setItem("token", res.data.token);
       message.success("تمت العملية بنجاح");
@@ -99,6 +100,7 @@ export default function register() {
               />
             </Form.Item>
             <Form.Item
+              style={{ direction: "ltr" }}
               name="password"
               rules={[
                 {
@@ -106,20 +108,15 @@ export default function register() {
                 },
               ]}
             >
-              <Input
+              <Input.Password
                 placeholder="كلمة المرور"
-                style={{ borderRadius: "50px" }}
-                prefix={<MdPassword style={{ color: "gray" }} />}
+                style={{ borderRadius: "50px", direction: "ltr" }}
               />
             </Form.Item>
 
             <Form.Item
               name="phone"
-              rules={[
-                {
-                  required: true,
-                },
-              ]}
+              style={{ display: "none" }}
             >
               <Input
                 placeholder="رقم الجوال الاحتياطي"
@@ -173,9 +170,18 @@ export default function register() {
             <Form.Item>
               <Space>
                 <Button
-                  type="primary"
                   htmlType="submit"
-                  style={{ marginTop: "1px !important" }}
+                  style={{
+                    marginTop: "1px !important",
+                    background: "#4A5758",
+                    color: "white",
+                    borderRadius: "70px",
+                    fontSize: "18px",
+                    width: "150px",
+
+
+
+                  }}
                 >
                   تسجيل
                 </Button>

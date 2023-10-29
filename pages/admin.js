@@ -1,77 +1,102 @@
-import React, { useContext, useEffect, useState } from "react";
-import { useRouter } from "next/navigation";
-import wat1 from "../assets/img/logo.png";
 import Image from "next/image";
-import { getOrders } from "@/api-services/orders-services";
-import { Table, Divider } from 'antd';
-import { BiEdit } from "react-icons/bi";
-import EditOrder from "./editOrder";
-export default function MapComponent() {
+import { useState } from "react";
+import wat from "../assets/img/wat.png";
+import wat1 from "../assets/img/logo.png";
+import LanguageIcon from "@mui/icons-material/Language";
+import { Input } from "antd";
+import { PhoneFilled } from "@ant-design/icons";
+import { Button } from "antd";
+import Link from "next/link";
+import { useRouter } from "next/navigation";
+import { postAdminLogin } from "@/api-services/login-admin-services";
+export default function login() {
     const router = useRouter();
-    const [products, setProducts] = useState([{}]);
-    const [selectedProducts, setSelectedProducts] = useState([{}]);
 
-    const ds = (product) => {
-        setSelectedProducts(product)
-        router.push(`/editOrder/`)
-    }
+    const [phoneNumber, setPhoneNumber] = useState({
+        username: "",
+        passWord: "",
+    });
+    const [authority, setAuthority] = useState('');
+    const handlePhoneChange = (event) => {
+        setPhoneNumber({
+            username: event.target.value,
+            password: "abo",
+        });
+    };
+    const submit = () => {
 
-    const sendObject = (product) => {
-        setSelectedProducts(product)
-        router.push("/editOrder")
-    }
-
-    const data1 = products.map((product) => ({
-        key: product.orderNo,
-        num: product.orderNo,
-        total: product.total,
-        status: product.status,
-        action: <BiEdit style={{ cursor: "pointer" }} onClick={() => {
-            ds(product)
-        }} />
-    }));
-    useEffect(() => {
-        getOrders().then((e) => {
-            setProducts(e.data)
-        })
-        const token = localStorage.getItem("token-admin");
-        if (!token) {
-            router.push("/dash");
+        if (phoneNumber.username !== "") {
+            postAdminLogin(phoneNumber).then((res) => {
+                localStorage.setItem("token-admin", res.data.token);
+                setAuthority(res.data.data.authority)
+                router.push("/controlAdmin")
+                // if (authority === "admin") {
+                // } else {
+                //     router.push("/deliveryMan")
+                // }
+            });
         }
-    }, []);
 
-    const columns = [
-        {
-            title: 'رقم الطلب',
-            dataIndex: 'num',
-        },
-        {
-            title: 'الاجمالي',
-            dataIndex: 'total',
-        },
-        {
-            title: 'الحالة',
-            dataIndex: 'status',
-        },
-        {
-            title: 'العمليات',
-            dataIndex: 'action',
-        },
-    ];
-
+    };
     return (
-        <div>
-            <div className="home" style={{ display: "flex", alignItems: "center", justifyContent: "space-between" }}>
-                <div style={{ fontSize: "25px", marginTop: "20px", display: "flex", alignItems: "center", flexDirection: "column", color: "gray" }}>الطلبات
-                    <Divider style={{ width: "110px !important", minWidth: "0px" }} />
-
+        <div className="containerss">
+            <div className="login">
+                <Image src={wat} alt="test" height={600} />
+                {/* <div className="word1 ">
+                    <Link href="/register"> تسجيل </Link>{" "}
+                </div> */}
+                <div className="word active">تسجيل الدخول</div>
+            </div>
+            <div className="sectionTwo">
+                <div className="icon">
+                    <LanguageIcon />
                 </div>
-                <div className="logo">
-                    <Image src={wat1} alt="test" width={125} height={125} />
+                <div className="image">
+                    <Image src={wat1} alt="test" />
+                    <span className="state" style={{ color: "#1D4760" }}>
+                        {" "}
+                        تسجيل الدخول
+                    </span>
+                    <Input
+                        rules={[
+                            {
+                                required: true,
+                            },
+                        ]}
+                        value={phoneNumber.username}
+                        onChange={(e) => handlePhoneChange(e)}
+                        style={{
+                            marginTop: "40px",
+                            direction: "rtl",
+                            borderRadius: "70px",
+                            width: "70%"
+                        }}
+                        prefix={<PhoneFilled
+                            style={{
+                                marginLeft: "10px",
+                                fontSize: "25px",
+                                color: "gray"
+                            }}
+                        />}
+                        placeholder="أدخل رقم الجوال"
+
+                    />{" "}
+                    <Button
+                        onClick={submit}
+                        style={{
+                            background: "#4A5758",
+                            color: "white",
+                            borderRadius: "70px",
+                            fontSize: "17px",
+                            width: "150px",
+                            marginTop: "40px",
+                        }}
+                    >
+                        تسجيل الدخول
+                    </Button>
+
                 </div>
             </div>
-            <Table style={{ direction: "rtl", padding: "10px" }} columns={columns} dataSource={data1} size="middle" />
-
         </div>
     );
 }

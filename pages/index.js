@@ -68,19 +68,14 @@ export default function Home() {
       <div className="text_body">
         "احصل على جودة عالية وراحة لا مثيل لها مع جوالين الماء القابلة للتنقل
         التي نقدمها على موقعنا"
-        <Image
-          src={hand}
-          alt="test"
-          width={100}
-          height={100}
-          style={{ position: "absolute", left: "31px", marginTop: "80px" }}
-        />
+
       </div>
       <div className="car">
         <div>
           <div className="ord1">وش تنتظر ؟</div>
-          <Link href={"/order"}>
-            <div className="ord">اطلب الان</div>
+          <Link href={"/order"} className="ord">
+
+            اطلب الان
           </Link>
         </div>
         <div className="img">
@@ -90,15 +85,10 @@ export default function Home() {
       <Divider></Divider>
       <div className="support">
         <div className="sup_pport">
-
-          <HiChatBubbleLeftRight />
           <PhoneFilled />
           الدعم الفني
         </div>
-        <Link href={"/order"} style={{ marginLeft: "20px", color: "gray" }}>
 
-          <BsFillArrowLeftCircleFill />
-        </Link>
       </div>
     </main>
   );

@@ -10,26 +10,37 @@ const MainLayout = (
   useEffect(() => {
     const tokenAdmin = localStorage.getItem("token-admin");
     const tokenUser = localStorage.getItem("token-client");
+    const tokenDeliveryMans = localStorage.getItem("token-deliveryMan");
 
     if (tokenAdmin) {
       // التوكن الإداري موجود - توجيه إلى واجهة الإدارة
       if (isPublicRoute(router.pathname)) {
-        router.push("/admin");
+        router.push("/controlAdmin");
       }
     } else if (tokenUser) {
       // توكن المستخدم موجود - توجيه إلى واجهة المستخدم
       if (isPublicRoute(router.pathname)) {
         router.push("/");
       }
+    } else if (tokenDeliveryMans) {
+      if (router.pathname === "/deliveryMan") {
+
+        router.push("/deliveryMan")
+      }
+
     } else {
       // لا توكن متوفر
-      if (router.pathname === "/dash") {
+      if (router.pathname === "/admin") {
         // توجيه المستخدم إلى واجهة تسجيل الدخول الخاصة بالإدمن
-        router.push("/dash");
+        router.push("admin");
       } else if (router.pathname === '/login') {
         // توجيه المستخدم إلى واجهة تسجيل الدخول العامة
         router.push("/login");
+      } else if (router.pathname === '/deliveryMan') {
+        router.push("/deliveryMan")
+
       } else {
+
         router.push("register")
       }
     }
@@ -37,7 +48,7 @@ const MainLayout = (
 
 
   const isPublicRoute = (path) => {
-    return path === "/login" || path === "/register" || path === "/dash" || path === "/admin";
+    return path === "/login" || path === "/register" || path === "/admin" || path === "/deliveryMan";
   };
 
   return (
@@ -45,7 +56,7 @@ const MainLayout = (
       {router.asPath === "/login" &&
         router.asPath === "/register" &&
         router.asPath === "/admin" &&
-        router.asPath === "/dashb" ? (
+        router.asPath === "adminb" ? (
         <Content>{props.children}
         </Content>
       ) : (
