@@ -1,34 +1,40 @@
 import React, { useContext, useEffect, useState } from "react";
-import { useRouter } from "next/navigation";
+import { useRouter } from "next/router";
 import wat1 from "../assets/img/logo.png";
 import Image from "next/image";
 import { getOrders } from "@/api-services/orders-services";
 import { Table, Divider } from 'antd';
 import { BiEdit } from "react-icons/bi";
-import EditOrder from "./editOrder";
+
 export default function MapComponent() {
     const router = useRouter();
     const [products, setProducts] = useState([{}]);
     const [selectedProducts, setSelectedProducts] = useState([{}]);
-
+    const name = "abode"
     const ds = (product) => {
-        setSelectedProducts(product)
-        router.push(`/editOrder/`)
-    }
+        console.log(product);
+        const numOrder = product.orderNo
+        const status = product.status
+        router.push({
+            pathname: '/editOrder',
+            query: {
+                numOrder,
+                status
 
-    const sendObject = (product) => {
-        setSelectedProducts(product)
-        router.push("/editOrder")
-    }
+            }
+        })
 
+    }
     const data1 = products.map((product) => ({
         key: product.orderNo,
         num: product.orderNo,
         total: product.total,
         status: product.status,
-        action: <BiEdit style={{ cursor: "pointer" }} onClick={() => {
+        action: <a onClick={() => {
             ds(product)
-        }} />
+        }}>
+            <BiEdit style={{ cursor: "pointer" }} />
+        </a>
     }));
     useEffect(() => {
         getOrders().then((e) => {

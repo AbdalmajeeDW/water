@@ -68,7 +68,11 @@ export default function order() {
       setProducts(res.data)
       setProductsC(res.data)
     }).catch((e) => {
-      message.error("لايوجد منتجات")
+      const token = localStorage.getItem("token-client")
+      if (!token) {
+        router.push("/login")
+      } else
+        message.error("لايوجد منتجات")
     })
   }, [''])
 
@@ -143,6 +147,7 @@ export default function order() {
 
       const filtered = products.filter((product) => product.id === selectedValue);
       const filteredProductsC = productsC.filter((product) => product.category !== "G" && product.id === selectedValueC);
+      const date = new Date().toISOString();
 
       addOrderServices(
         {
@@ -163,7 +168,7 @@ export default function order() {
             }
           ],
           status: "not started",
-          dateCreated: "2023-10-19T00:00:00Z",
+          dateCreated: date,
           total: totalP,
           tenderedAmount: totalP
         }

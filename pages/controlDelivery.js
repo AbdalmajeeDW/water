@@ -12,23 +12,29 @@ export default function MapComponent() {
     const [selectedProducts, setSelectedProducts] = useState([{}]);
 
     const ds = (product) => {
-        setSelectedProducts(product)
-        // router.push(`/editOrder/`)
-    }
+        console.log(product);
+        const numOrder = product.orderNo
+        const status = product.status
+        router.push({
+            pathname: '/editOrderDelivery',
+            query: {
+                numOrder,
+                status
 
-    const sendObject = (product) => {
-        setSelectedProducts(product)
-        // router.push("/editOrder")
-    }
+            }
+        })
 
+    }
     const data1 = products.map((product) => ({
         key: product.orderNo,
         num: product.orderNo,
         total: product.total,
         status: product.status,
-        action: <BiEdit style={{ cursor: "pointer" }} onClick={() => {
+        action: <a onClick={() => {
             ds(product)
-        }} />
+        }}>
+            <BiEdit style={{ cursor: "pointer" }} />
+        </a>
     }));
     useEffect(() => {
         getOrders().then((e) => {

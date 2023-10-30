@@ -7,6 +7,8 @@ import { Input } from "antd";
 import { PhoneFilled } from "@ant-design/icons";
 import { Button } from "antd";
 import Link from "next/link";
+import { BsFillPersonFill } from "react-icons/bs";
+
 import { useRouter } from "next/navigation";
 import { postAdminLogin } from "@/api-services/login-admin-services";
 export default function login() {
@@ -71,7 +73,7 @@ export default function login() {
                             borderRadius: "70px",
                             width: "70%"
                         }}
-                        prefix={<PhoneFilled
+                        prefix={<BsFillPersonFill
                             style={{
                                 marginLeft: "10px",
                                 fontSize: "25px",
