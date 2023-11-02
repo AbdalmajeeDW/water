@@ -1,7 +1,7 @@
 import Image from "next/image";
 import { useState } from "react";
-import wat from "../assets/img/wat.png";
-import wat1 from "../assets/img/logo.png";
+import wat from "../../assets/img/wat.png";
+import wat1 from "../../assets/img/logo.png";
 import LanguageIcon from "@mui/icons-material/Language";
 import { Input } from "antd";
 import { PhoneFilled } from "@ant-design/icons";
@@ -31,11 +31,8 @@ export default function login() {
             postAdminLogin(phoneNumber).then((res) => {
                 localStorage.setItem("token-admin", res.data.token);
                 setAuthority(res.data.data.authority)
-                router.push("/controlAdmin")
-                // if (authority === "admin") {
-                // } else {
-                //     router.push("/deliveryMan")
-                // }
+                router.push("admin/controlAdmin")
+
             });
         }
 

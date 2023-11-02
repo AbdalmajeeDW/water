@@ -1,29 +1,25 @@
 import React, { useContext, useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
-import wat1 from "../assets/img/logo.png";
+import wat1 from "../../assets/img/logo.png";
 import Image from "next/image";
 import { getOrders } from "@/api-services/orders-services";
 import { Table, Divider } from 'antd';
 import { BiEdit } from "react-icons/bi";
-import EditOrder from "./editOrder";
 export default function MapComponent() {
     const router = useRouter();
     const [products, setProducts] = useState([{}]);
-    const [selectedProducts, setSelectedProducts] = useState([{}]);
 
     const ds = (product) => {
         console.log(product);
         const numOrder = product.orderNo
         const status = product.status
         router.push({
-            pathname: '/editOrderDelivery',
+            pathname: '/deliveryMan/editOrderDelivery',
             query: {
                 numOrder,
                 status
-
             }
         })
-
     }
     const data1 = products.map((product) => ({
         key: product.orderNo,

@@ -10,3 +10,12 @@ export const addOrderServices = (item) => {
     };
     return axios.post(root, item, { headers });
 };
+
+export const getOrderServices = () => {
+    const token = localStorage.getItem("token-client");
+    const headers = {
+        Accept: "application/json",
+        Authorization: "Token" + " " + token,
+    };
+    return axios.get(root, { headers });
+};

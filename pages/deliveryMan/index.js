@@ -1,7 +1,7 @@
 import Image from "next/image";
 import { useState } from "react";
-import wat from "../assets/img/wat.png";
-import wat1 from "../assets/img/logo.png";
+import wat from "../../assets/img/wat.png";
+import wat1 from "../../assets/img/logo.png";
 import LanguageIcon from "@mui/icons-material/Language";
 import { Input } from "antd";
 import { BsFillPersonFill } from "react-icons/bs";
@@ -28,7 +28,7 @@ export default function login() {
             postAdminLogin(phoneNumber).then((res) => {
                 localStorage.setItem("token-deliveryMan", res.data.token);
                 setAuthority(res.data.data.authority)
-                router.push("/controlDelivery")
+                router.push("/deliveryMan/controlDelivery")
 
             });
         }

@@ -24,23 +24,16 @@ const MainLayout = (
       }
     } else if (tokenDeliveryMans) {
       if (router.pathname === "/deliveryMan") {
-
         router.push("/deliveryMan")
       }
-
     } else {
-      // لا توكن متوفر
       if (router.pathname === "/admin") {
-        // توجيه المستخدم إلى واجهة تسجيل الدخول الخاصة بالإدمن
         router.push("admin");
       } else if (router.pathname === '/login') {
-        // توجيه المستخدم إلى واجهة تسجيل الدخول العامة
         router.push("/login");
       } else if (router.pathname === '/deliveryMan') {
         router.push("/deliveryMan")
-
       } else {
-
         router.push("register")
       }
     }

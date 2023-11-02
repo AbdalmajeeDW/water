@@ -10,8 +10,7 @@ import { BsFillPersonFill } from "react-icons/bs";
 import { CiLogout } from "react-icons/ci";
 import { useRouter } from "next/navigation";
 import { PhoneFilled } from "@ant-design/icons";
-import { HiChatBubbleLeftRight } from "react-icons/hi2";
-import { BsFillArrowLeftCircleFill } from "react-icons/bs";
+
 
 import { Button, Divider } from "antd";
 import Link from "next/link";

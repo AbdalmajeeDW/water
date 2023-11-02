@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { useRouter } from "next/router";
-import wat1 from "../assets/img/logo.png";
+import wat1 from "../../assets/img/logo.png";
 import Image from "next/image";
 import { Button, Divider, Input } from 'antd';
 import { BsFillPersonFill } from "react-icons/bs";
@@ -48,13 +48,7 @@ const editOrder = () => {
                 <span >الرصيد الحالي : </span>
             </div>
             <div className="addMon">
-                <span style={{ color: "gray", fontSize: "22px" }}>اضافة رصيد</span>
-                <div style={{ display: 'flex', alignItems: "center", gap: '10px', }}>
-                    <Radio.Group onChange={onChange} value={value} style={{ color: "gray" }}>
-                        <Radio style={{ color: "gray", fontSize: "22px" }} value={1}>موجب</Radio>
-                        <Radio style={{ color: "gray", fontSize: "22px" }} value={2}>سالب</Radio>
-                    </Radio.Group>
-                </div>
+
                 <Input
                     rules={[
                         {

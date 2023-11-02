@@ -1,26 +1,38 @@
 import React, { useContext, useEffect, useState } from "react";
 import { useRouter } from "next/router";
-import wat1 from "../assets/img/logo.png";
+import wat1 from "../../assets/img/logo.png";
 import Image from "next/image";
 import { getOrders } from "@/api-services/orders-services";
-import { Table, Divider } from 'antd';
+import { Table, Divider, Button } from 'antd';
 import { BiEdit } from "react-icons/bi";
+import Link from "next/link";
+import { AiOutlineMenu } from "react-icons/ai";
+import { FaHome } from "react-icons/fa";
+import { FaUsers } from "react-icons/fa";;
+import LanguageIcon from "@mui/icons-material/Language";
+import { CiLogout } from "react-icons/ci";
+
 
 export default function MapComponent() {
     const router = useRouter();
     const [products, setProducts] = useState([{}]);
-    const [selectedProducts, setSelectedProducts] = useState([{}]);
-    const name = "abode"
+
+    const [show, setShow] = useState(false);
+    const showMenu = () => {
+        setShow(!show);
+    };
+    const logOut = () => {
+        localStorage.removeItem("token-admin");
+        router.push("/admin");
+    };
     const ds = (product) => {
-        console.log(product);
         const numOrder = product.orderNo
         const status = product.status
         router.push({
-            pathname: '/editOrder',
+            pathname: '/admin/editOrder',
             query: {
                 numOrder,
                 status
-
             }
         })
 
@@ -39,6 +51,7 @@ export default function MapComponent() {
     useEffect(() => {
         getOrders().then((e) => {
             setProducts(e.data)
+            console.log(e.data);
         })
         const token = localStorage.getItem("token-admin");
         if (!token) {
@@ -47,6 +60,10 @@ export default function MapComponent() {
     }, []);
 
     const columns = [
+        {
+            title: 'اسم العميل',
+            dataIndex: 'userName',
+        },
         {
             title: 'رقم الطلب',
             dataIndex: 'num',
@@ -68,14 +85,41 @@ export default function MapComponent() {
     return (
         <div>
             <div className="home" style={{ display: "flex", alignItems: "center", justifyContent: "space-between" }}>
-                <div style={{ fontSize: "25px", marginTop: "20px", display: "flex", alignItems: "center", flexDirection: "column", color: "gray" }}>الطلبات
-                    <Divider style={{ width: "110px !important", minWidth: "0px" }} />
 
+
+                <div className="icon_menu">
+                    <AiOutlineMenu
+                        onClick={showMenu}
+                        style={{ position: "relative", zIndex: "99999" }}
+                    />
+                    <div className={`menu_${show && "show"}`}>
+                        <div className="content_menu">
+
+                            <FaHome style={{ marginTop: "20px", color: "#58abe9" }} />
+
+                            <LanguageIcon />
+                            <Link href={"/admin/client-list"} style={{ color: "gray" }}>
+                                <FaUsers style={{ marginTop: "20px" }} />
+                            </Link>
+                        </div>
+
+                        <Button onClick={logOut} style={{ marginTop: "20px" }}>
+                            <CiLogout
+                                style={{
+                                    fontSize: "17px",
+                                }}
+                            />
+                            تسجيل الخروج
+                        </Button>
+                    </div>
                 </div>
+
+
                 <div className="logo">
                     <Image src={wat1} alt="test" width={125} height={125} />
                 </div>
             </div>
+
             <Table style={{ direction: "rtl", padding: "10px" }} columns={columns} dataSource={data1} size="middle" />
 
         </div>
