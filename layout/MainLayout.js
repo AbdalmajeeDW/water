@@ -15,7 +15,7 @@ const MainLayout = (
     if (tokenAdmin) {
       // التوكن الإداري موجود - توجيه إلى واجهة الإدارة
       if (isPublicRoute(router.pathname)) {
-        router.push("/controlAdmin");
+        router.push("/admin/controlAdmin");
       }
     } else if (tokenUser) {
       // توكن المستخدم موجود - توجيه إلى واجهة المستخدم

@@ -15,33 +15,46 @@ import { CiLogout } from "react-icons/ci";
 
 export default function MapComponent() {
     const router = useRouter();
-    const [products, setProducts] = useState([{}]);
-
+    const [products, setProducts] = useState();
     const [show, setShow] = useState(false);
+    const [isLoading, setIsLoading] = useState(true);
+
+
+
     const showMenu = () => {
         setShow(!show);
     };
+
     const logOut = () => {
         localStorage.removeItem("token-admin");
         router.push("/admin");
     };
+
     const ds = (product) => {
         const numOrder = product.orderNo
         const status = product.status
+        const id = product.client.id
+        const balance = product.client.balance
+        const name = product.client.fullname
         router.push({
             pathname: '/admin/editOrder',
             query: {
                 numOrder,
-                status
+                status,
+                id,
+                balance,
+                name
             }
         })
 
     }
-    const data1 = products.map((product) => ({
+    const data1 = isLoading === false && products.map((product) => ({
         key: product.orderNo,
         num: product.orderNo,
+        userName:product.client.username,
         total: product.total,
         status: product.status,
+        blance:product.client.balance,
         action: <a onClick={() => {
             ds(product)
         }}>
@@ -50,8 +63,11 @@ export default function MapComponent() {
     }));
     useEffect(() => {
         getOrders().then((e) => {
+            setIsLoading(false)
             setProducts(e.data)
+
             console.log(e.data);
+            
         })
         const token = localStorage.getItem("token-admin");
         if (!token) {
@@ -71,6 +87,10 @@ export default function MapComponent() {
         {
             title: 'الاجمالي',
             dataIndex: 'total',
+        },
+        {
+            title: 'الرصيد',
+            dataIndex: 'blance',
         },
         {
             title: 'الحالة',
@@ -120,7 +140,7 @@ export default function MapComponent() {
                 </div>
             </div>
 
-            <Table style={{ direction: "rtl", padding: "10px" }} columns={columns} dataSource={data1} size="middle" />
+            <Table style={{ direction: "rtl", padding: "10px" }} columns={columns} dataSource={data1} loading={isLoading} size="middle" />
 
         </div>
     );

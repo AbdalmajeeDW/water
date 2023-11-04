@@ -1,5 +1,4 @@
-import { useEffect } from "react";
-import "../assets/styles/css/main.min.css";
+import "../assets/styles/sass/main.css";
 import { useRouter } from "next/router";
 import MainLayout from "@/layout/MainLayout";
 
