@@ -12,7 +12,7 @@ import { FaUsers } from "react-icons/fa";;
 import LanguageIcon from "@mui/icons-material/Language";
 import { CiLogout } from "react-icons/ci";
 
-
+import useMediaQuery from '@mui/material/useMediaQuery';
 export default function MapComponent() {
     const router = useRouter();
     const [products, setProducts] = useState();
@@ -48,6 +48,8 @@ export default function MapComponent() {
         })
 
     }
+    const isWebDevice = useMediaQuery('(max-width:580px)');
+    console.log(isWebDevice);
     const data1 = isLoading === false && products.map((product) => ({
         key: product.orderNo,
         num: product.orderNo,
@@ -101,7 +103,22 @@ export default function MapComponent() {
             dataIndex: 'action',
         },
     ];
-
+    const columnsMobile = [
+        {
+            title: 'اسم العميل',
+            dataIndex: 'userName',
+        },
+      
+        {
+            title: 'الاجمالي',
+            dataIndex: 'total',
+        },
+     
+        {
+            title: 'العمليات',
+            dataIndex: 'action',
+        },
+    ];
     return (
         <div>
             <div className="home" style={{ display: "flex", alignItems: "center", justifyContent: "space-between" }}>
@@ -140,7 +157,7 @@ export default function MapComponent() {
                 </div>
             </div>
 
-            <Table style={{ direction: "rtl", padding: "10px" }} columns={columns} dataSource={data1} loading={isLoading} size="middle" />
+            <Table style={{ direction: "rtl", padding: "10px" }} columns={isWebDevice === true ? columnsMobile:columns} dataSource={data1} loading={isLoading} size="middle" />
 
         </div>
     );

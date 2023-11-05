@@ -10,6 +10,7 @@ import LanguageIcon from "@mui/icons-material/Language";
 import { FaUsers } from "react-icons/fa";
 import { CiLogout } from "react-icons/ci";
 import { useRouter } from "next/router";
+import useMediaQuery from '@mui/material/useMediaQuery';
 
 import Link from "next/link";
 const clientList = () => {
@@ -17,6 +18,7 @@ const clientList = () => {
   const [show, setShow] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
   const router = useRouter();
+  const isWebDevice = useMediaQuery('(max-width:580px)');
 
   const showMenu = () => {
     setShow(!show);
@@ -54,6 +56,21 @@ const clientList = () => {
       setIsLoading(false);
     });
   }, []);
+  const columnsMobile = [
+    {
+      title: "اسم العميل",
+      dataIndex: "userName",
+    },
+    {
+      title: "الرصيد",
+      dataIndex: "blance",
+    },
+
+    {
+      title: "العمليات",
+      dataIndex: "action",
+    },
+  ];
   const columns = [
     {
       title: "اسم العميل",
@@ -114,7 +131,7 @@ const clientList = () => {
       </div>
       <Table
         style={{ direction: "rtl", padding: "10px" }}
-        columns={columns}
+        columns={isWebDevice === true ? columnsMobile:columns}
         dataSource={data1}
         loading={isLoading}
         size="middle"
