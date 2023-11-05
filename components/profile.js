@@ -56,7 +56,7 @@ export default function order() {
       title: "رقم الطلب",
       dataIndex: "num",
     },
- 
+    
     {
       title: "الاجمالي",
       dataIndex: "total",
