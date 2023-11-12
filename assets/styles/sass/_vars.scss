@@ -22,3 +22,15 @@ a {
   text-decoration: none;
   color: black;
 }
+.ant-modal{
+  direction: ltr;
+}
+.ant-modal-confirm-btns{
+  margin-top: 20px !important;
+}
+// .anticon {
+//   display: none;
+// }
+.ant-modal-confirm-title{
+  direction: rtl;
+}

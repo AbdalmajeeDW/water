@@ -33,7 +33,7 @@ export default function login() {
         router.push("/")
 
       }).catch((err) => {
-        // message.error(err.response.non_field_errors[0]);
+        message.error('المستخدم غير موجود');
       });;
     } else {
       message.error("من فضلك املأ الحقل")
@@ -55,9 +55,10 @@ export default function login() {
         </div>
         <div className="image">
           <Image src={wat1} alt="test" />
-          <span className="state" style={{ color: "#1D4760" }}>
+          <span className="" style={{ color: "#1D4760" }}>
             {" "}
-            تسجيل الدخول
+            تسجيل الدخول (عميل)
+ 
           </span>
           <Input
             rules={[
@@ -68,7 +69,7 @@ export default function login() {
             value={phoneNumber.username}
             onChange={(e) => handlePhoneChange(e)}
             style={{
-              marginTop: "40px",
+           
               direction: "rtl",
               borderRadius: "70px",
               width: "70%"
@@ -93,13 +94,13 @@ export default function login() {
               borderRadius: "70px",
               fontSize: "18px",
               width: "150px",
-              marginTop: "40px",
+       
             }}
           >
             تسجيل الدخول
           </Button>
-          <span className="rout" style={{ marginTop: "10px" }}>
-            <Link href="/register"> تسجيل </Link>ليس لديك حساب؟
+          <span className="rout">
+            <Link href="/register">   تسجيل  </Link> ليس لديك حساب؟
           </span>
         </div>
       </div>

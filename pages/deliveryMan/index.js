@@ -46,9 +46,9 @@ export default function login() {
                 </div>
                 <div className="image">
                     <Image src={wat1} alt="test" />
-                    <span className="state" style={{ color: "#1D4760" }}>
+                    <span className="" style={{ color: "#1D4760" }}>
                         {" "}
-                        تسجيل الدخول
+                        تسجيل الدخول (مندوب)
                     </span>
                     <Input
                         rules={[
@@ -59,7 +59,7 @@ export default function login() {
                         value={phoneNumber.username}
                         onChange={(e) => handlePhoneChange(e)}
                         style={{
-                            marginTop: "90px",
+                           
                             direction: "rtl",
                             borderRadius: "70px",
                             width: "70%"
@@ -82,7 +82,7 @@ export default function login() {
                             borderRadius: "70px",
                             fontSize: "17px",
                             width: "150px",
-                            marginTop: "40px",
+                        
                         }}
                     >
                         تسجيل الدخول

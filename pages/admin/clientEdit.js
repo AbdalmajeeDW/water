@@ -11,7 +11,7 @@ import { FaUsers } from "react-icons/fa";
 import { Button, Divider,  Table } from "antd";
 import Link from "next/link";
 import { getOrderByAdminServices } from "@/api-services/get-orders-by-admin-services";
-import { BiSolidLeftArrowCircle } from "react-icons/bi";
+import { BiSolidLeftArrowCircle, BiSolidLogOut } from "react-icons/bi";
 
 export default function clientEdit() {
   const router = useRouter();
@@ -72,7 +72,33 @@ export default function clientEdit() {
   ];
   return (
     <div style={{ height: "100vh" }}>
-      <div className="home">
+       <div className="home">
+        <div className="logo">
+          <Image src={wat1} alt="test" width={75} height={75} />
+        </div>
+        <div
+          onClick={logOut}
+          className="up-bar"
+          style={{ fontSize: "20px", color: "gray", cursor: "pointer" }}
+        >
+          تسجيل الخروج{" "}
+        </div>
+
+        <Link
+          className="up-bar"
+          style={{ fontSize: "20px", color: " #3dc5cd" }}
+          href={"/admin/client-list"}
+        >
+          العملاء
+        </Link>
+        <Link
+          className="up-bar"
+          style={{ fontSize: "20px", color: "gray", marginRight: "25px" }}
+          href={"/admin/controlAdmin"}
+        >
+          الرئيسية{" "}
+        </Link>
+
         <div className="icon_menu">
           <AiOutlineMenu
             onClick={showMenu}
@@ -80,26 +106,24 @@ export default function clientEdit() {
           />
           <div className={`menu_${show && "show"}`}>
             <div className="content_menu">
-              <Link href={"/admin/controlAdmin"} style={{ color: "gray" }}>
-                <FaHome style={{ marginTop: "20px" }} />
+              <Link           href={"/admin/controlAdmin"}
+ style={{ color: "gray" }}>
+                الرئيسية <FaHome style={{ marginTop: "20px" }} />
               </Link>
-              <LanguageIcon />
+              <Link href={"/admin/client-list"} style={{ color: " #3dc5cd" }}>
+                العملاء <FaUsers style={{ marginTop: "20px" }} />
+              </Link>
 
-              <FaUsers style={{ marginTop: "20px", color: "#58abe9" }} />
+              <div onClick={logOut}>
+                تسجيل الخروج{" "}
+                <BiSolidLogOut
+                  style={{
+                    fontSize: "17px",
+                  }}
+                />
+              </div>
             </div>
-
-            <Button onClick={logOut} style={{ marginTop: "20px" }}>
-              <CiLogout
-                style={{
-                  fontSize: "17px",
-                }}
-              />
-              تسجيل الخروج
-            </Button>
           </div>
-        </div>
-        <div className="logo">
-          <Image src={wat1} alt="test" width={125} height={125} />
         </div>
       </div>
       <div
@@ -118,12 +142,7 @@ export default function clientEdit() {
       <div className="now2">
     
         <span style={{ fontSize: "25px", color: "gray", marginTop: "40px" }}>
-        <Link
-            style={{ marginTop: "20px", color: "#71878b" }}
-            href={"/admin/client-list"}
-          >
-            <BiSolidLeftArrowCircle fontSize={20} />
-          </Link> {name}  :  طلبات   
+      {name}  :  طلبات   
         </span>
       </div>
       <Table

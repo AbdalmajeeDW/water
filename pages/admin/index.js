@@ -3,7 +3,7 @@ import { useState } from "react";
 import wat from "../../assets/img/wat.png";
 import wat1 from "../../assets/img/logo.png";
 import LanguageIcon from "@mui/icons-material/Language";
-import { Input } from "antd";
+import { Input, message } from "antd";
 import { PhoneFilled } from "@ant-design/icons";
 import { Button } from "antd";
 import Link from "next/link";
@@ -33,7 +33,11 @@ export default function login() {
                 setAuthority(res.data.data.authority)
                 router.push("admin/controlAdmin")
 
+            }).then(()=>{}).catch(()=>{
+                message.error("اسم الادمن غير صحيح")
             });
+        }else{
+            message.error("املا الحقل من فضلك")
         }
 
     };
@@ -41,9 +45,7 @@ export default function login() {
         <div className="containerss">
             <div className="login">
                 <Image src={wat} alt="test" height={600} />
-                {/* <div className="word1 ">
-                    <Link href="/register"> تسجيل </Link>{" "}
-                </div> */}
+     
                 <div className="word active">تسجيل الدخول</div>
             </div>
             <div className="sectionTwo">
@@ -52,9 +54,9 @@ export default function login() {
                 </div>
                 <div className="image">
                     <Image src={wat1} alt="test" />
-                    <span className="state" style={{ color: "#1D4760" }}>
+                    <span className="" style={{ color: "#1D4760" }}>
                         {" "}
-                        تسجيل الدخول
+                        تسجيل الدخول (ادمن)
                     </span>
                     <Input
                         rules={[
@@ -65,7 +67,6 @@ export default function login() {
                         value={phoneNumber.username}
                         onChange={(e) => handlePhoneChange(e)}
                         style={{
-                            marginTop: "90px",
                             direction: "rtl",
                             borderRadius: "70px",
                             width: "70%"
@@ -77,7 +78,7 @@ export default function login() {
                                 color: "gray"
                             }}
                         />}
-                        placeholder="أدخل رقم الجوال"
+                        placeholder="أدخل الاسم"
 
                     />{" "}
                     <Button
@@ -88,7 +89,7 @@ export default function login() {
                             borderRadius: "70px",
                             fontSize: "17px",
                             width: "150px",
-                            marginTop: "40px",
+                      
                         }}
                     >
                         تسجيل الدخول

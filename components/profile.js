@@ -10,6 +10,8 @@ import { useRouter } from "next/navigation";
 import { Button, Divider, Table } from "antd";
 import Link from "next/link";
 import { getOrderServices } from "@/api-services/add-order-services";
+import { BiSolidLogOut } from "react-icons/bi";
+import { MdOutlineProductionQuantityLimits } from "react-icons/md";
 export default function order() {
   const router = useRouter();
   const [show, setShow] = useState(false);
@@ -69,6 +71,38 @@ export default function order() {
   return (
     <div style={{ height: "100vh" }}>
       <div className="home">
+        <div className="logo">
+          <Image src={wat1} alt="test" width={75} height={75} />
+        </div>
+        <div
+        
+        className="up-bar"
+        
+        onClick={logOut} style={{ fontSize: "20px", color: "gray" ,cursor:'pointer'}}>
+          تسجيل الخروج{" "}
+        </div>
+        <Link
+          className="up-bar"
+          style={{ fontSize: "20px", color: "#3dc5cd" }}
+          href={"/profile"}
+        >
+          الملف الشخصي
+        </Link>
+        <Link
+          className="up-bar"
+          style={{ fontSize: "20px", color: "gray" }}
+          href={"/order"}
+        >
+          الطلبات
+        </Link>
+        <Link
+          className="up-bar"
+          style={{ fontSize: "20px", color: "gray", marginRight: "25px" }}
+          href={"/"}
+        >
+          الرئيسية{" "}
+        </Link>
+
         <div className="icon_menu">
           <AiOutlineMenu
             onClick={showMenu}
@@ -77,28 +111,27 @@ export default function order() {
           <div className={`menu_${show && "show"}`}>
             <div className="content_menu">
               <Link href={"/"} style={{ color: "gray" }}>
-                <FaHome style={{ marginTop: "20px" }} />
-              </Link>{" "}
-              <LanguageIcon />
-              <Link href={"profile"} style={{ color: "gray" }}>
-                <BsFillPersonFill style={{ marginTop: "20px" }} />
+                الرئيسية <FaHome style={{ marginTop: "20px" }} />
               </Link>
+              <Link href={"profile"} style={{ color: "#3dc5cd" }}>
+                الملف الشخصي <BsFillPersonFill style={{ marginTop: "20px" }} />
+              </Link>
+              <Link href={"/order"} style={{ color: "gray" }}>
+                الطلبات{" "}
+                <MdOutlineProductionQuantityLimits
+                  style={{ marginTop: "20px" }}
+                />
+              </Link>
+              <div onClick={logOut}>
+                تسجيل الخروج{" "}
+                <BiSolidLogOut
+                  style={{
+                    fontSize: "17px",
+                  }}
+                />
+              </div>
             </div>
-            <div className="text_menu">
-              الطلبات متاحة من الساعة 12الظهر الى 6 المغرب بتوقيت السعودية
-            </div>
-            <Button onClick={logOut} style={{ marginTop: "20px" }}>
-              <CiLogout
-                style={{
-                  fontSize: "17px",
-                }}
-              />
-              تسجيل الخروج
-            </Button>
           </div>
-        </div>
-        <div className="logo">
-          <Image src={wat1} alt="test" width={125} height={125} />
         </div>
       </div>
       <div

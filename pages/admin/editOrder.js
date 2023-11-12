@@ -5,15 +5,18 @@ import Image from "next/image";
 import { Button, Divider, Input, message } from "antd";
 import { BsFillPersonFill } from "react-icons/bs";
 import { postTransactions } from "@/api-services/transactions-services";
-import { BiSolidLeftArrowCircle } from "react-icons/bi";
+import { BiSolidLeftArrowCircle, BiSolidLogOut } from "react-icons/bi";
 import Link from "next/link";
 import { getTransactions } from "@/api-services/get-transactions-services";
+import { AiOutlineMenu } from "react-icons/ai";
+import { FaHome, FaUsers } from "react-icons/fa";
 const editOrder = () => {
   const router = useRouter();
   const [transactions, setTransactions] = useState(null);
   const [note, setNote] = useState(null);
   const [clients, setClients] = useState();
   const [load, setload] = useState(true);
+  const [show, setShow] = useState(false);
 
   const {
     query: { numOrder, status, id, balance, name },
@@ -64,31 +67,66 @@ const editOrder = () => {
       setNote(null);
     }
   };
+  const showMenu = () => {
+    setShow(!show);
+  };
+  const logOut = () => {
+    localStorage.removeItem("token-admin");
+    router.push("/admin");
+  };
   return (
     <div>
-      <div
-        className="home"
-        style={{
-          display: "flex",
-          alignItems: "center",
-          justifyContent: "space-between",
-        }}
-      >
-        <div
-          style={{
-            fontSize: "25px",
-            marginTop: "20px",
-            display: "flex",
-            alignItems: "center",
-            flexDirection: "column",
-            color: "gray",
-          }}
-        >
-          تعديل
-          <Divider style={{ width: "110px !important", minWidth: "0px" }} />
-        </div>
+      <div className="home">
         <div className="logo">
-          <Image src={wat1} alt="test" width={125} height={125} />
+          <Image src={wat1} alt="test" width={75} height={75} />
+        </div>
+        <div
+          onClick={logOut}
+          className="up-bar"
+          style={{ fontSize: "20px", color: "gray", cursor: "pointer" }}
+        >
+          تسجيل الخروج{" "}
+        </div>
+
+        <Link
+          className="up-bar"
+          style={{ fontSize: "20px", color: " #3dc5cd" }}
+          href={"/admin/client-list"}
+        >
+          العملاء
+        </Link>
+        <Link
+          className="up-bar"
+          style={{ fontSize: "20px", color: "gray", marginRight: "25px" }}
+          href={"/admin/controlAdmin"}
+        >
+          الرئيسية{" "}
+        </Link>
+
+        <div className="icon_menu">
+          <AiOutlineMenu  
+            onClick={showMenu}
+            style={{ position: "relative", zIndex: "99999" }}
+          />
+          <div className={`menu_${show && "show"}`}>
+            <div className="content_menu">
+              <Link href={"/admin/controlAdmin"} style={{ color: "gray" }}>
+                الرئيسية <FaHome style={{ marginTop: "20px" }} />
+              </Link>
+              <Link href={"/admin/client-list"} style={{ color: " #3dc5cd" }}>
+                العملاء <FaUsers style={{ marginTop: "20px" }} />
+              </Link>
+
+              <div onClick={logOut}>
+                تسجيل الخروج{" "}
+                <BiSolidLogOut
+                  style={{
+                    fontSize: "17px",
+                  }}
+                />
+              </div>
+            </div>
+          </div>
         </div>
       </div>
       <div className="bodEdit">
