@@ -34,7 +34,7 @@ const MainLayout = (
       } else if (router.pathname === '/deliveryMan') {
         router.push("/deliveryMan")
       } else {
-        router.push("register")
+        router.push("/splash")
       }
     }
   }, [router.pathname]);
@@ -48,8 +48,7 @@ const MainLayout = (
     <Layout>
       {router.asPath === "/login" &&
         router.asPath === "/register" &&
-        router.asPath === "/admin" &&
-        router.asPath === "adminb" ? (
+        router.asPath === "/admin"  ? (
         <Content>{props.children}
         </Content>
       ) : (

@@ -178,12 +178,12 @@ export default function order() {
         <div>
             <div className="home" style={{ display: "flex", alignItems: "center", justifyContent: "space-between" }}>
 
-                <div style={{ fontSize: "25px", marginTop: "20px", display: "flex", alignItems: "center", flexDirection: "column", color: "gray" }}>تعديل
+                <div style={{ marginLeft:'20px',fontSize: "25px", marginTop: "20px", display: "flex", alignItems: "center", flexDirection: "column", color: "gray" }}>تعديل
                     <Divider style={{ width: "110px !important", minWidth: "0px" }} />
 
                 </div>
                 <div className="logo">
-                    <Image src={wat1} alt="test" width={125} height={125} />
+                    <Image src={wat1} alt="test" width={75} height={75} style={{marginRight:"20px"}} />
                 </div>
 
 
@@ -193,6 +193,8 @@ export default function order() {
                 <div className="input_order">
                     <div className="input_gal">
                         <Select
+            style={{width:"300px"}}
+
                             showSearch
                             value={nameprod}
                             onChange={handleSelect}
@@ -222,6 +224,8 @@ export default function order() {
                     </div>
                     <div className="input_gal">
                         <Select
+            style={{width:"300px"}}
+
                             value={nameprodC}
                             onChange={handleSelectC}
                             onSelect={handleSelectC}
@@ -257,7 +261,7 @@ export default function order() {
                 <span style={{ color: "gray", fontSize: "20px" }}>
                     المبلغ الأجمالي : {totalP} ريال
                 </span>
-                <Button style={{ marginTop: "20px" }} onClick={submitOrder}>اطلب</Button>
+                <Button style={{ marginTop: "20px" }} onClick={submitOrder}>تعديل الطلب</Button>
             </div>
         </div>
     );

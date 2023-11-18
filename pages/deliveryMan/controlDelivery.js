@@ -64,12 +64,12 @@ export default function MapComponent() {
     return (
         <div>
             <div className="home" style={{ display: "flex", alignItems: "center", justifyContent: "space-between" }}>
-                <div style={{ fontSize: "25px", marginTop: "20px", display: "flex", alignItems: "center", flexDirection: "column", color: "gray" }}>الطلبات
+                <div style={{ marginLeft:"20px  ",fontSize: "25px", marginTop: "20px", display: "flex", alignItems: "center", flexDirection: "column", color: "gray" }}>الطلبات
                     <Divider style={{ width: "110px !important", minWidth: "0px" }} />
 
                 </div>
                 <div className="logo">
-                    <Image src={wat1} alt="test" width={125} height={125} />
+                    <Image src={wat1} alt="test" width={75} height={75} style={{marginRight:"20px"}} />
                 </div>
             </div>
             <Table style={{ direction: "rtl", padding: "10px" }} columns={columns} dataSource={data1} size="middle" />
